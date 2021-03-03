@@ -45,7 +45,7 @@ npm install --save videojs-overlay-buttons
 }
 ```
 
-### Available options
+### Available buttons
 
 ```js
 {

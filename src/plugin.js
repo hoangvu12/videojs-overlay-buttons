@@ -1,6 +1,8 @@
 import videojs from "video.js";
 import { version as VERSION } from "../package.json";
 
+let latestTap;
+
 // Default options for the plugin.
 const defaults = {};
 
@@ -66,14 +68,13 @@ const createOverlay = (options, player) => {
 
         player.currentTime(time);
       },
+      doubleTap: true,
     },
     play: {
       handleClick: () => {
         if (player.paused()) {
-          console.log("Player paused");
           player.play();
         } else {
-          console.log("Player played");
           player.pause();
         }
       },
@@ -84,6 +85,7 @@ const createOverlay = (options, player) => {
 
         player.currentTime(time);
       },
+      doubleTap: true,
     },
   };
 
@@ -97,8 +99,13 @@ const createOverlay = (options, player) => {
 
     if (!defaultOption) continue;
 
-    if (!userOption.handleClick && defaultOption.handleClick) {
-      userOption.handleClick = defaultOption.handleClick;
+    for (let option in defaultOption) {
+      if (
+        !userOption.hasOwnProperty(option) &&
+        defaultOption.hasOwnProperty(option)
+      ) {
+        userOption[option] = defaultOption[option];
+      }
     }
   }
 
@@ -119,12 +126,25 @@ const createOverlay = (options, player) => {
   });
 
   handleClick(buttons);
+  handleTap(buttons);
 
   overlay_div.className = "vjs-overlay";
 
   buttons.forEach((button) => overlay_div.append(button.element));
 
   return overlay_div;
+};
+
+const handleTap = (buttons) => {
+  buttons = buttons.filter(
+    (button) => button.options.doubleTap && button.options.handleClick
+  );
+
+  buttons.forEach((button) => {
+    button.element.addEventListener("click", () =>
+      isDoubleTap(button.options.handleClick)
+    );
+  });
 };
 
 const handleClick = (buttons) => {
@@ -184,6 +204,17 @@ const createButton = (iconClass, extra = "") => {
   button.append(wrapper);
 
   return button;
+};
+
+const isDoubleTap = (callback) => {
+  const now = new Date().getTime();
+  const timeSince = now - latestTap;
+
+  if (timeSince < 600 && timeSince > 0) {
+    callback();
+  }
+
+  latestTap = new Date().getTime();
 };
 
 /**
