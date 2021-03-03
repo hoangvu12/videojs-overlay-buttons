@@ -1,0 +1,65 @@
+/**
+ * css for videojs-touch-overlay
+ * With the default plugins for postcss you can
+ * - @import files, they will be inlined during build
+ * - not worry about browser prefixes, they will be handled
+ * - nest selectors. This follows the css specification that is
+ *   currently out on some browsers. See https://tabatkins.github.io/specs/css-nesting/
+ * - custom properties (aka variables) via the var(--var-name) syntax. See
+ *   https://www.w3.org/TR/css-variables-1/
+ */
+
+/* Note: all vars must be defined here, there are no "local" vars */
+:root {
+  --main-color: red;
+  --base-font-size: 9;
+  --font-size: 7;
+}
+
+.video-js .vjs-overlay {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fit, auto);
+  grid-auto-flow: column;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.vjs-overlay .overlay-button {
+  opacity: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vjs-overlay.overlay-hide {
+  opacity: 0;
+  transition: 1.5s;
+}
+
+.vjs-overlay .overlay-button .icon {
+  z-index: 1;
+  transition-duration: 1s;
+  cursor: pointer;
+}
+
+.vjs-overlay .previous-button .icon:hover {
+  transform: translateX(-25px);
+}
+
+.vjs-overlay .seek-left .icon:hover {
+  transform: rotate(-50deg);
+}
+
+.vjs-overlay .play-button .icon:hover {
+  transform: scale(1.2);
+}
+
+.vjs-overlay .seek-right .icon:hover {
+  transform: rotate(50deg) scaleX(-1);
+}
+
+.vjs-overlay .next-button .icon:hover {
+  transform: translateX(25px);
+}
