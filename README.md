@@ -25,6 +25,7 @@ npm install --save videojs-overlay-buttons
 
       player.currentTime(time);
     },
+    doubleTap: true,
   },
   play: {
     handleClick: () => {
@@ -41,6 +42,7 @@ npm install --save videojs-overlay-buttons
 
       player.currentTime(time);
     },
+    doubleTap: true,
   },
 }
 ```
