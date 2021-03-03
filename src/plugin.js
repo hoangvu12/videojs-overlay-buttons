@@ -34,15 +34,19 @@ const onPlayerReady = (player, options) => {
 
 const eventsInitialize = (player, overlay) => {
   player.on("play", () => {
-    const playButtonIcon = document.querySelector(".play-button");
+    const playButtonWrapper = document.querySelector(
+      ".play-button .button-wrapper"
+    );
 
-    playButtonIcon.innerHTML = '<i class="icon fa fa-4x fa-pause"></i>';
+    playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-pause"></i>';
   });
 
   player.on("pause", () => {
-    const playButtonIcon = document.querySelector(".play-button");
+    const playButtonWrapper = document.querySelector(
+      ".play-button .button-wrapper"
+    );
 
-    playButtonIcon.innerHTML = '<i class="icon fa fa-4x fa-play"></i>';
+    playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-play"></i>';
   });
 
   player.on("userinactive", () => {
@@ -66,8 +70,10 @@ const createOverlay = (options, player) => {
     play: {
       handleClick: () => {
         if (player.paused()) {
+          console.log("Player paused");
           player.play();
         } else {
+          console.log("Player played");
           player.pause();
         }
       },
@@ -123,7 +129,9 @@ const createOverlay = (options, player) => {
 
 const handleClick = (buttons) => {
   buttons.forEach((button) => {
-    button.element.addEventListener("click", button.options.handleClick);
+    const [wrapperElement] = button.element.children;
+
+    wrapperElement.addEventListener("click", button.options.handleClick);
   });
 };
 
@@ -166,9 +174,14 @@ const createButton = (iconClass, extra = "") => {
   const icon = document.createElement("i");
   icon.className = `icon fa fa-4x fa-${iconClass} ${extra}`;
 
+  const wrapper = document.createElement("div");
+  wrapper.className = "button-wrapper";
+  wrapper.append(icon);
+
   const button = document.createElement("div");
   button.className = "overlay-button vjs-button";
-  button.append(icon);
+
+  button.append(wrapper);
 
   return button;
 };

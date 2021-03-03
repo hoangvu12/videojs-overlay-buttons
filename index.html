@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>videojs-touch-overlay Demo</title>
+    <title>videojs-overlay-buttons Demo</title>
     <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet" />
-    <link href="dist/videojs-touch-overlay.css" rel="stylesheet" />
+    <link href="dist/videojs-overlay-buttons.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
@@ -14,7 +14,7 @@
   </head>
   <body>
     <video
-      id="videojs-touch-overlay-player"
+      id="videojs-overlay-buttons-player"
       class="video-js vjs-default-skin"
       controls
     >
@@ -26,11 +26,11 @@
       <li><a href="docs/api/">Read generated docs.</a></li>
     </ul>
     <script src="node_modules/video.js/dist/video.js"></script>
-    <script src="dist/videojs-touch-overlay.js"></script>
+    <script src="dist/videojs-overlay-buttons.js"></script>
     <script>
       (function (window, videojs) {
         var examplePlayer = (window.examplePlayer = videojs(
-          "videojs-touch-overlay-player"
+          "videojs-overlay-buttons-player"
         ));
         var touchOverlay = (window.touchOverlay = examplePlayer.touchOverlay({
           previous: {},

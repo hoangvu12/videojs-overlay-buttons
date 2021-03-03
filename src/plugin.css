@@ -20,13 +20,16 @@
   display: inline-grid;
   grid-template-columns: repeat(auto-fit, auto);
   grid-auto-flow: column;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 .vjs-overlay .overlay-button {
-  opacity: 1;
+  /* opacity: 1; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -39,7 +42,7 @@
 }
 
 .vjs-overlay .overlay-button .icon {
-  z-index: 1;
+  z-index: 2;
   transition-duration: 1s;
   cursor: pointer;
 }
@@ -62,4 +65,8 @@
 
 .vjs-overlay .next-button .icon:hover {
   transform: translateX(25px);
+}
+
+.vjs-control-bar {
+  z-index: 2;
 }

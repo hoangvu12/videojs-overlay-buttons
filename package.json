@@ -1,20 +1,16 @@
 {
-  "name": "videojs-touch-overlay",
-  "version": "1.0.0",
-  "description": "Touch overlay for player",
-  "main": "dist/videojs-touch-overlay.cjs.js",
-  "module": "dist/videojs-touch-overlay.es.js",
+  "name": "videojs-overlay-buttons",
+  "version": "1.1.0",
+  "description": "Overlay buttons for videojs player",
+  "main": "dist/videojs-overlay-buttons.cjs.js",
+  "module": "dist/videojs-overlay-buttons.es.js",
   "generator-videojs-plugin": {
     "version": "7.6.3"
   },
-  "browserslist": [
-    "defaults",
-    "ie 11"
-  ],
   "scripts": {
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
-    "build:css": "postcss -o dist/videojs-touch-overlay.css --config scripts/postcss.config.js src/plugin.css",
+    "build:css": "postcss -o dist/videojs-overlay-buttons.css --config scripts/postcss.config.js src/plugin.css",
     "build:js": "rollup -c scripts/rollup.config.js",
     "clean": "shx rm -rf ./dist ./test/dist",
     "postclean": "shx mkdir -p ./dist ./test/dist",
@@ -34,9 +30,12 @@
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
     "watch:css": "npm run build:css -- -w",
-    "watch:js": "npm run build:js -- -w",
-    "prepublishOnly": "npm-run-all build test:verify"
+    "watch:js": "npm run build:js -- -w"
   },
+  "browserslist": [
+    "defaults",
+    "ie 11"
+  ],
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -81,31 +80,31 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "global": "^4.3.2",
-    "video.js": "^6 || ^7"
+    "global": "^4.4.0",
+    "video.js": "^7.11.4"
   },
   "devDependencies": {
     "@videojs/generator-helpers": "~1.0.0",
     "jsdoc": "github:BrandonOCasey/jsdoc#feat/plugin-from-cli",
-    "karma": "^4.0.0",
-    "postcss-cli": "^6.0.0",
-    "rollup": "^1.10.0",
-    "sinon": "^7.2.2",
-    "videojs-generate-karma-config": "~5.2.0",
-    "videojs-generate-postcss-config": "~2.1.0",
-    "videojs-generate-rollup-config": "~3.1.0",
+    "karma": "^4.4.1",
+    "postcss-cli": "^6.1.3",
+    "rollup": "^1.32.1",
+    "sinon": "^7.5.0",
+    "videojs-generate-karma-config": "^5.2.1",
+    "videojs-generate-postcss-config": "^2.1.1",
+    "videojs-generate-rollup-config": "^3.1.1",
     "videojs-generator-verify": "~1.2.0",
-    "videojs-standard": "^8.0.3"
+    "videojs-standard": "^8.0.4"
   },
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoangvu12/videojs-touch-overlay.git"
+    "url": "git+https://github.com/hoangvu12/videojs-overlay-buttons.git"
   },
   "bugs": {
-    "url": "https://github.com/hoangvu12/videojs-touch-overlay/issues"
+    "url": "https://github.com/hoangvu12/videojs-overlay-buttons/issues"
   },
-  "homepage": "https://github.com/hoangvu12/videojs-touch-overlay#readme"
+  "homepage": "https://github.com/hoangvu12/videojs-overlay-buttons#readme"
 }
