@@ -2,9 +2,51 @@ import videojs from "video.js";
 import { version as VERSION } from "../package.json";
 
 let latestTap;
-
+let isLocked = false;
 // Default options for the plugin.
-const defaults = {};
+const defaults = {
+  seekLeft: {
+    handleClick: (player) => {
+      const time = Number(player.currentTime()) - 10;
+
+      player.currentTime(time);
+    },
+    doubleTap: true,
+  },
+  play: {
+    handleClick: (player) => {
+      if (player.paused()) {
+        player.play();
+      } else {
+        player.pause();
+      }
+    },
+  },
+  seekRight: {
+    handleClick: (player) => {
+      const time = Number(player.currentTime()) + 10;
+
+      player.currentTime(time);
+    },
+    doubleTap: true,
+  },
+  lockButton: false,
+};
+
+const controlButtons = {
+  previous: { icon: "backward", className: "previous-button" },
+  seekLeft: { icon: "history", className: "seek-left" },
+  play: { icon: "play", className: "play-button" },
+  seekRight: {
+    icon: "history",
+    className: "seek-right",
+    extra: "fa-flip-horizontal",
+  },
+  next: {
+    icon: "forward",
+    className: "next-button",
+  },
+};
 
 // Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
@@ -27,7 +69,7 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
 const onPlayerReady = (player, options) => {
   player.addClass("vjs-touch-overlay");
 
-  const overlay = createOverlay(options, player);
+  const overlay = createOverlay(player, options);
 
   eventsInitialize(player, overlay);
 
@@ -60,41 +102,137 @@ const eventsInitialize = (player, overlay) => {
   });
 };
 
-const createOverlay = (options, player) => {
-  const defaultOpts = {
-    seekLeft: {
-      handleClick: () => {
-        const time = Number(player.currentTime()) - 10;
-
-        player.currentTime(time);
-      },
-      doubleTap: true,
-    },
-    play: {
-      handleClick: () => {
-        if (player.paused()) {
-          player.play();
-        } else {
-          player.pause();
-        }
-      },
-    },
-    seekRight: {
-      handleClick: () => {
-        const time = Number(player.currentTime()) + 10;
-
-        player.currentTime(time);
-      },
-      doubleTap: true,
-    },
-  };
-
+const createOverlay = (player, options) => {
   if (!options || !Object.keys(options).length) {
-    options = { ...defaultOpts };
+    options = { ...defaults };
+  } else {
+    options = mergeOptions(options, defaults);
   }
 
-  for (let key in options) {
-    const userOption = options[key];
+  const overlay_div = document.createElement("div");
+  const controlOverlay = document.createElement("div");
+
+  controlOverlay.className = "control-overlay-buttons";
+
+  overlay_div.className = "vjs-overlay";
+
+  const btnOpts = Object.keys(options).filter((button) =>
+    controlButtons.hasOwnProperty(button)
+  );
+
+  const buttons = btnOpts.map((button) => {
+    const buttonProperties = controlButtons[button];
+
+    const element = createButton(buttonProperties);
+
+    return { options: options[button], element };
+  });
+
+  handleClick(buttons, player);
+  handleTap(buttons, player);
+
+  if (options.lockButton) {
+    const lockButtonProperties = {
+      icon: "lock",
+      className: "lock-button",
+      size: "2x",
+    };
+
+    const lockButton = createButton(lockButtonProperties);
+
+    handleLockClick(lockButton);
+
+    controlOverlay.append(lockButton);
+  }
+
+  buttons.forEach((button) => controlOverlay.append(button.element));
+
+  overlay_div.append(controlOverlay);
+
+  return overlay_div;
+};
+
+const handleLockClick = (lockBtn) => {
+  const [wrapperElement] = lockBtn.children;
+
+  wrapperElement.addEventListener("click", () => {
+    const controlButtonsWrapper = Array.from(
+      document.querySelectorAll(".overlay-button:not(.lock-button)")
+    );
+
+    if (isLocked) {
+      wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-lock"></i>';
+      controlButtonsWrapper.forEach((btn) => {
+        btn.style.display = "";
+      });
+      isLocked = false;
+      return;
+    }
+
+    wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-unlock"></i>';
+    controlButtonsWrapper.forEach((btn) => {
+      btn.style.display = "none";
+    });
+    isLocked = true;
+  });
+};
+
+const handleTap = (buttons, player) => {
+  buttons = buttons.filter(
+    (button) => button.options.doubleTap && button.options.handleClick
+  );
+
+  buttons.forEach((button) => {
+    button.element.addEventListener("click", () => {
+      isDoubleTap(() => {
+        button.options.handleClick(player);
+      });
+    });
+  });
+};
+
+const handleClick = (buttons, player) => {
+  buttons = buttons.filter((btn) => btn.options.handleClick);
+
+  buttons.forEach((button) => {
+    const [wrapperElement] = button.element.children;
+
+    wrapperElement.addEventListener("click", () =>
+      button.options.handleClick(player)
+    );
+  });
+};
+
+const createButton = ({ icon, extra = "", className = "", size = "4x" }) => {
+  const iconEl = document.createElement("i");
+  iconEl.className = `icon fa fa-${size} fa-${icon} ${extra}`;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "button-wrapper";
+  wrapper.append(iconEl);
+
+  const button = document.createElement("div");
+  button.className = `overlay-button vjs-button ${className}`;
+
+  button.append(wrapper);
+
+  return button;
+};
+
+const isDoubleTap = (callback) => {
+  const now = new Date().getTime();
+  const timeSince = now - latestTap;
+
+  if (timeSince < 400 && timeSince > 0) {
+    callback();
+  }
+
+  latestTap = new Date().getTime();
+};
+
+const mergeOptions = (originalOpts, defaultOpts) => {
+  for (let key in originalOpts) {
+    const userOption = originalOpts[key];
     const defaultOption = defaultOpts[key];
 
     if (!defaultOption) continue;
@@ -109,112 +247,7 @@ const createOverlay = (options, player) => {
     }
   }
 
-  const initButtons = {
-    previous: createPreviousButton,
-    seekLeft: createSeekLeft,
-    play: createPlayButton,
-    seekRight: createSeekRight,
-    next: createNextButton,
-  };
-
-  const overlay_div = document.createElement("div");
-
-  const btnOpts = Object.keys(options);
-
-  const buttons = btnOpts.map((button) => {
-    return { options: options[button], element: initButtons[button]() };
-  });
-
-  handleClick(buttons);
-  handleTap(buttons);
-
-  overlay_div.className = "vjs-overlay";
-
-  buttons.forEach((button) => overlay_div.append(button.element));
-
-  return overlay_div;
-};
-
-const handleTap = (buttons) => {
-  buttons = buttons.filter(
-    (button) => button.options.doubleTap && button.options.handleClick
-  );
-
-  buttons.forEach((button) => {
-    button.element.addEventListener("click", () =>
-      isDoubleTap(button.options.handleClick)
-    );
-  });
-};
-
-const handleClick = (buttons) => {
-  buttons.forEach((button) => {
-    const [wrapperElement] = button.element.children;
-
-    wrapperElement.addEventListener("click", button.options.handleClick);
-  });
-};
-
-const createPreviousButton = () => {
-  const previousButton = createButton("backward");
-  previousButton.classList.add("previous-button");
-
-  return previousButton;
-};
-
-const createPlayButton = () => {
-  const playButton = createButton("play");
-  playButton.classList.add("play-button");
-
-  return playButton;
-};
-
-const createNextButton = () => {
-  const nextButton = createButton("forward");
-  nextButton.classList.add("next-button");
-
-  return nextButton;
-};
-
-const createSeekLeft = () => {
-  const seekLeft = createButton("history");
-  seekLeft.classList.add("seek-left");
-
-  return seekLeft;
-};
-
-const createSeekRight = () => {
-  const seekLeft = createButton("history", "fa-flip-horizontal");
-  seekLeft.classList.add("seek-right");
-
-  return seekLeft;
-};
-
-const createButton = (iconClass, extra = "") => {
-  const icon = document.createElement("i");
-  icon.className = `icon fa fa-4x fa-${iconClass} ${extra}`;
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "button-wrapper";
-  wrapper.append(icon);
-
-  const button = document.createElement("div");
-  button.className = "overlay-button vjs-button";
-
-  button.append(wrapper);
-
-  return button;
-};
-
-const isDoubleTap = (callback) => {
-  const now = new Date().getTime();
-  const timeSince = now - latestTap;
-
-  if (timeSince < 600 && timeSince > 0) {
-    callback();
-  }
-
-  latestTap = new Date().getTime();
+  return originalOpts;
 };
 
 /**
@@ -230,8 +263,9 @@ const isDoubleTap = (callback) => {
  *           An object of options left to the plugin author to define.
  */
 const touchOverlay = function (options) {
+  // videojs.mergeOptions(defaults, options)
   this.ready(() => {
-    onPlayerReady(this, videojs.mergeOptions(defaults, options));
+    onPlayerReady(this, options);
   });
 };
 

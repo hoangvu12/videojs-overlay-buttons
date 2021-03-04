@@ -1,6 +1,6 @@
 {
   "name": "videojs-overlay-buttons",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Overlay buttons for videojs player",
   "main": "dist/videojs-overlay-buttons.cjs.js",
   "module": "dist/videojs-overlay-buttons.es.js",
@@ -30,7 +30,8 @@
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
     "watch:css": "npm run build:css -- -w",
-    "watch:js": "npm run build:js -- -w"
+    "watch:js": "npm run build:js -- -w",
+    "prepublish": "npm run build"
   },
   "browserslist": [
     "defaults",

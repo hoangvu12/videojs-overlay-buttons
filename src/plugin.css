@@ -17,19 +17,22 @@
 }
 
 .video-js .vjs-overlay {
-  display: inline-grid;
-  grid-template-columns: repeat(auto-fit, auto);
-  grid-auto-flow: column;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1;
+  width: 100%;
+}
+
+.vjs-overlay .control-overlay-buttons {
+  display: grid;
+  grid-auto-flow: column;
+  height: 100%;
 }
 
 .vjs-overlay .overlay-button {
-  /* opacity: 1; */
   width: 100%;
   display: flex;
   justify-content: center;

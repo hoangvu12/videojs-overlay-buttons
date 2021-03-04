@@ -42,6 +42,7 @@ npm install --save videojs-overlay-buttons
       player.currentTime(time);
     },
   },
+  lockButton: true
 }
 ```
 
