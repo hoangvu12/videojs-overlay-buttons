@@ -2,6 +2,8 @@
 
 Touch overlay for player
 
+![How overlay looks like](https://i.ibb.co/RPWYdy5/image.png)
+
 ## Table of Contents
 
 <!-- START doctoc -->
@@ -47,6 +49,22 @@ npm install --save videojs-overlay-buttons
   lockButton: true
 }
 ```
+
+| Options     | Type     | Description                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------- |
+| handleClick | Callback | This callback will be executed when the button is clicked                        |
+| doubleTap   | Boolean  | If the holder of the icon is double tapped, execute handleClick option           |
+| lockButton  | Boolean  | Show lock button when true, will hide all buttons except lockButton when clicked |
+
+_When lockButton is true_
+
+![When lockButton: true](https://i.ibb.co/HBGzPDm/image.png)
+
+_When lock button is clicked_
+
+![Lock button is clicked](https://i.ibb.co/KLs1SF6/image.png)
+
+This will hide all buttons except lock button
 
 ### Available buttons
 
@@ -114,6 +132,10 @@ require(["video.js", "videojs-overlay-buttons"], function (videojs) {
   player.touchOverlay(options);
 });
 ```
+
+## Todos
+
+- Add hide control bar when click lock button
 
 ## License
 
