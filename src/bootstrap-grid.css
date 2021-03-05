@@ -24,12 +24,11 @@
 .row > * {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) / 2);
   padding-left: calc(var(--bs-gutter-x) / 2);
   margin-top: var(--bs-gutter-y);
 }
+
 .col {
   flex: 1 0 0%;
 }
