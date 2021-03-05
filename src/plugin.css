@@ -1,3 +1,5 @@
+@import "./bootstrap-grid.css";
+@import "./font-awesome.css";
 /**
  * css for videojs-touch-overlay
  * With the default plugins for postcss you can
@@ -9,15 +11,15 @@
  *   https://www.w3.org/TR/css-variables-1/
  */
 
-/* Note: all vars must be defined here, there are no "local" vars */
-:root {
-  --main-color: red;
-  --base-font-size: 9;
-  --font-size: 7;
+.video-js .row {
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
 }
 
 .video-js .vjs-overlay {
   position: absolute;
+  padding: 0 !important;
   top: 0;
   left: 0;
   right: 0;
@@ -30,10 +32,12 @@
   display: grid;
   grid-auto-flow: column;
   height: 100%;
+  width: 83% !important;
 }
 
 .vjs-overlay .overlay-button {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

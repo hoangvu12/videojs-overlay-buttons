@@ -56,15 +56,17 @@ npm install --save videojs-overlay-buttons
 | doubleTap   | Boolean  | If the holder of the icon is double tapped, execute handleClick option           |
 | lockButton  | Boolean  | Show lock button when true, will hide all buttons except lockButton when clicked |
 
+### Lock button
+
 _When lockButton is true_
 
-![When lockButton: true](https://i.ibb.co/HBGzPDm/image.png)
+![When lockButton: true](https://i.ibb.co/DQ41S8s/image.png)
 
 _When lock button is clicked_
 
-![Lock button is clicked](https://i.ibb.co/KLs1SF6/image.png)
+![Lock button is clicked](https://i.ibb.co/ch2qBTC/image.png)
 
-This will hide all buttons except lock button
+This will hide all buttons (also control bar) except lock button
 
 ### Available buttons
 
@@ -78,12 +80,23 @@ This will hide all buttons except lock button
 }
 ```
 
-## Includes Font Awesome
+## CDN
 
-Any version will works.
+### CSS
+
+Add this to your `head` tag
 
 ```html
-<link rel="stylesheet" href="//path/to/font-awesome/5.15.2/css/all.min.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/videojs-overlay-buttons@latest/dist/videojs-overlay-buttons.css"
+/>
+```
+
+### JS
+
+```html
+<script src="https://unpkg.com/videojs-overlay-buttons@latest/dist/videojs-overlay-buttons.min.js"></script>
 ```
 
 ## Usage

@@ -110,11 +110,13 @@ const createOverlay = (player, options) => {
   }
 
   const overlay_div = document.createElement("div");
+  const row = document.createElement("div");
   const controlOverlay = document.createElement("div");
 
-  controlOverlay.className = "control-overlay-buttons";
+  controlOverlay.className = "col-12 mx-auto control-overlay-buttons";
+  row.className = "row";
 
-  overlay_div.className = "vjs-overlay";
+  overlay_div.className = "container-fluid vjs-overlay";
 
   const btnOpts = Object.keys(options).filter((button) =>
     controlButtons.hasOwnProperty(button)
@@ -132,6 +134,12 @@ const createOverlay = (player, options) => {
   handleTap(buttons, player);
 
   if (options.lockButton) {
+    const lockOverlay = document.createElement("div");
+    lockOverlay.className = "col-1 lock-overlay";
+
+    controlOverlay.classList.remove("col-12", "mx-auto");
+    controlOverlay.classList.add("col-11");
+
     const lockButtonProperties = {
       icon: "lock",
       className: "lock-button",
@@ -142,18 +150,22 @@ const createOverlay = (player, options) => {
 
     handleLockClick(lockButton);
 
-    controlOverlay.append(lockButton);
+    lockOverlay.append(lockButton);
+
+    row.append(lockOverlay);
   }
 
   buttons.forEach((button) => controlOverlay.append(button.element));
 
-  overlay_div.append(controlOverlay);
+  row.append(controlOverlay);
+  overlay_div.append(row);
 
   return overlay_div;
 };
 
 const handleLockClick = (lockBtn) => {
   const [wrapperElement] = lockBtn.children;
+  const controlBar = document.querySelector(".vjs-control-bar");
 
   wrapperElement.addEventListener("click", () => {
     const controlButtonsWrapper = Array.from(
@@ -162,17 +174,26 @@ const handleLockClick = (lockBtn) => {
 
     if (isLocked) {
       wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-lock"></i>';
+
       controlButtonsWrapper.forEach((btn) => {
         btn.style.display = "";
       });
+
+      controlBar.style.display = "";
+
       isLocked = false;
+
       return;
     }
 
     wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-unlock"></i>';
+
     controlButtonsWrapper.forEach((btn) => {
       btn.style.display = "none";
     });
+
+    controlBar.style.display = "none";
+
     isLocked = true;
   });
 };
