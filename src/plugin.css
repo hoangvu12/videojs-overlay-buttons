@@ -52,6 +52,7 @@
   z-index: 2;
   transition-duration: 1s;
   cursor: pointer;
+  text-shadow: 0 0 5px #000;
 }
 
 .vjs-overlay .previous-button .icon:hover {

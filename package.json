@@ -1,6 +1,6 @@
 {
   "name": "videojs-overlay-buttons",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Overlay buttons for videojs player",
   "main": "dist/videojs-overlay-buttons.cjs.js",
   "module": "dist/videojs-overlay-buttons.es.js",
