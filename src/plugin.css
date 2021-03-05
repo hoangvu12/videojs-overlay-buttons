@@ -11,7 +11,7 @@
  *   https://www.w3.org/TR/css-variables-1/
  */
 
-.video-js .row {
+.video-js .overlay-row {
   height: 100%;
   width: 100%;
   margin: 0 !important;

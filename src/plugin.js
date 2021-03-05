@@ -113,10 +113,10 @@ const createOverlay = (player, options) => {
   const row = document.createElement("div");
   const controlOverlay = document.createElement("div");
 
-  controlOverlay.className = "col-12 mx-auto control-overlay-buttons";
-  row.className = "row";
+  controlOverlay.className = "overlay-col-12 mx-auto control-overlay-buttons";
+  row.className = "overlay-row";
 
-  overlay_div.className = "container-fluid vjs-overlay";
+  overlay_div.className = "overlay-container-fluid vjs-overlay";
 
   const btnOpts = Object.keys(options).filter((button) =>
     controlButtons.hasOwnProperty(button)
@@ -135,10 +135,10 @@ const createOverlay = (player, options) => {
 
   if (options.lockButton) {
     const lockOverlay = document.createElement("div");
-    lockOverlay.className = "col-1 lock-overlay";
+    lockOverlay.className = "overlay-col-1 lock-overlay";
 
-    controlOverlay.classList.remove("col-12", "mx-auto");
-    controlOverlay.classList.add("col-11");
+    controlOverlay.classList.remove("overlay-col-12", "mx-auto");
+    controlOverlay.classList.add("overlay-col-11");
 
     const lockButtonProperties = {
       icon: "lock",

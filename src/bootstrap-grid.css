@@ -4,14 +4,14 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-.container-fluid {
+.overlay-container-fluid {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
   margin-right: auto;
   margin-left: auto;
 }
-.row {
+.overlay-row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -21,7 +21,7 @@
   margin-left: calc(var(--bs-gutter-x) / -2);
 }
 
-.row > * {
+.overlay-row > * {
   box-sizing: border-box;
   flex-shrink: 0;
   padding-right: calc(var(--bs-gutter-x) / 2);
@@ -29,15 +29,15 @@
   margin-top: var(--bs-gutter-y);
 }
 
-.col {
+.overlay-col {
   flex: 1 0 0%;
 }
 
-.col-1 {
+.overlay-col-1 {
   flex: 0 0 auto;
   width: 8.3333333333%;
 }
-.col-11 {
+.overlay-col-11 {
   flex: 0 0 auto;
   width: 91.6666666667%;
 }
