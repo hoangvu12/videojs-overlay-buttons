@@ -118,6 +118,7 @@ const createOverlay = (player, options) => {
 
   overlay_div.className = "overlay-container-fluid vjs-overlay";
 
+  // Filter out button options
   const btnOpts = Object.keys(options).filter((button) =>
     controlButtons.hasOwnProperty(button)
   );

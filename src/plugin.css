@@ -44,8 +44,7 @@
 }
 
 .vjs-overlay.overlay-hide {
-  opacity: 0;
-  transition: 1.5s;
+  display: none;
 }
 
 .vjs-overlay .overlay-button .icon {
