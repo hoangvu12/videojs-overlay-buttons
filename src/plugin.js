@@ -71,12 +71,14 @@ const onPlayerReady = (player, options) => {
 
   const overlay = createOverlay(player, options);
 
-  eventsInitialize(player, overlay);
-
   player.el().append(overlay);
+
+  eventsInitialize(player, overlay);
 };
 
 const eventsInitialize = (player, overlay) => {
+  const overlayRow = document.querySelector(".overlay-row");
+
   player.on("play", () => {
     const playButtonWrapper = document.querySelector(
       ".play-button .button-wrapper"
@@ -94,11 +96,30 @@ const eventsInitialize = (player, overlay) => {
   });
 
   player.on("userinactive", () => {
-    overlay.classList.add("overlay-hide");
+    overlay.classList.add("d-none");
   });
 
   player.on("useractive", () => {
-    overlay.classList.remove("overlay-hide");
+    overlay.classList.remove("d-none");
+  });
+
+  overlay.addEventListener("click", function (e) {
+    const controlBar = document.querySelector(".vjs-control-bar");
+
+    // If clicked element is overlay button, then ignore this
+    if (e.target.classList.contains("icon")) {
+      return;
+    }
+
+    if (!overlayRow.classList.contains("d-none")) {
+      overlayRow.classList.add("d-none");
+      controlBar.classList.add("d-none");
+    } else {
+      console.log("Removed d-none");
+
+      overlayRow.classList.remove("d-none");
+      controlBar.classList.remove("d-none");
+    }
   });
 };
 
@@ -177,10 +198,10 @@ const handleLockClick = (lockBtn) => {
       wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-lock"></i>';
 
       controlButtonsWrapper.forEach((btn) => {
-        btn.style.display = "";
+        btn.classList.remove("d-none");
       });
 
-      controlBar.style.display = "";
+      controlBar.classList.remove("d-none");
 
       isLocked = false;
 
@@ -190,10 +211,10 @@ const handleLockClick = (lockBtn) => {
     wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-unlock"></i>';
 
     controlButtonsWrapper.forEach((btn) => {
-      btn.style.display = "none";
+      btn.classList.add("d-none");
     });
 
-    controlBar.style.display = "none";
+    controlBar.classList.add("d-none");
 
     isLocked = true;
   });

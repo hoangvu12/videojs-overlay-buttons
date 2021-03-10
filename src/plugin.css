@@ -43,8 +43,12 @@
   align-items: center;
 }
 
-.vjs-overlay.overlay-hide {
-  display: none;
+.visible-none {
+  visibility: hidden !important;
+}
+
+.d-none {
+  display: none !important;
 }
 
 .vjs-overlay .overlay-button .icon {
