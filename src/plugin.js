@@ -97,10 +97,12 @@ const eventsInitialize = (player, overlay) => {
 
   player.on("userinactive", () => {
     overlay.classList.add("d-none");
+    overlayRow.classList.add("d-none");
   });
 
   player.on("useractive", () => {
     overlay.classList.remove("d-none");
+    overlayRow.classList.remove("d-none");
   });
 
   overlay.addEventListener("click", function (e) {
@@ -115,10 +117,11 @@ const eventsInitialize = (player, overlay) => {
       overlayRow.classList.add("d-none");
       controlBar.classList.add("d-none");
     } else {
-      console.log("Removed d-none");
-
       overlayRow.classList.remove("d-none");
-      controlBar.classList.remove("d-none");
+
+      if (!isLocked) {
+        controlBar.classList.remove("d-none");
+      }
     }
   });
 };
