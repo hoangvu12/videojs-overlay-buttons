@@ -46,13 +46,13 @@ npm install --save videojs-overlay-buttons
     },
     doubleTap: true,
   },
-  lockButton: true
+  lockButton: false
 }
 ```
 
 | Options     | Type     | Description                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------- |
-| handleClick | Callback | This callback will be executed when the button is clicked                        |
+| handleClick | Function | This Function will be executed when the button is clicked                        |
 | doubleTap   | Boolean  | If the holder of the icon is double tapped, execute handleClick option           |
 | lockButton  | Boolean  | Show lock button when true, will hide all buttons except lockButton when clicked |
 
@@ -94,6 +94,8 @@ Add this to your `head` tag
 ```
 
 ### JS
+
+Add this to bottom your `body` tag
 
 ```html
 <script src="https://unpkg.com/videojs-overlay-buttons@latest/dist/videojs-overlay-buttons.min.js"></script>
@@ -145,10 +147,6 @@ require(["video.js", "videojs-overlay-buttons"], function (videojs) {
   player.touchOverlay(options);
 });
 ```
-
-## Todos
-
-- Add hide control bar when click lock button
 
 ## License
 

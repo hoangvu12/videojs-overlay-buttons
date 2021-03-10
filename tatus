@@ -1,0 +1,78 @@
+[33mcommit c0822fe161afc64de318049b93089b4d00f59567[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 10 22:23:37 2021 +0800
+
+    Hide controls when click on overlay, show when click again.
+
+[33mcommit acefac626144120a5f354ea5f30994dfb9f8ffe6[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 10 21:52:54 2021 +0800
+
+    Remove overlay transition when user inactive
+
+[33mcommit 4706e7884b8ff6974d9d21dd91266d813ddb8ceb[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Fri Mar 5 11:04:51 2021 +0800
+
+    Delete unnecessary css
+
+[33mcommit b94f34eb75ee8e293873cd97ca15335f4bc84949[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Fri Mar 5 11:00:39 2021 +0800
+
+    Delete unnecessary css
+
+[33mcommit cc781804da082f7590586e964a14cc5f2c89903b[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Fri Mar 5 10:49:38 2021 +0800
+
+    Add shadow to icon
+
+[33mcommit 25b4b4d0f68a376bea5b845668526560de87c45d[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Fri Mar 5 10:40:01 2021 +0800
+
+    Hide control bar when click lock button, use bootstrap grid  for better looking
+
+[33mcommit ae5e241bbf64ed9f489a7da5ef8874cd705fede5[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Fri Mar 5 00:05:31 2021 +0800
+
+    Update README.md more clearly
+
+[33mcommit 664237aaac572105cf13819aeaf00e0fa797e8a4[m
+Merge: e162b65 fbfbd7c
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Thu Mar 4 11:15:19 2021 +0800
+
+    Merge branch 'master' of https://github.com/hoangvu12/videojs-touch-overlay
+
+[33mcommit e162b6575009609b89cc291599b070a160579507[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Thu Mar 4 11:12:04 2021 +0800
+
+    Add lock button, remove unnecessary css
+
+[33mcommit fbfbd7c0cac712d59bc98f2eefc9cbd6551ffd43[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 3 20:25:56 2021 +0800
+
+    Update README.md
+
+[33mcommit d426ea2b381e2aba27fa8d8b6c16a026a6079a1c[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 3 20:22:11 2021 +0800
+
+    Add double tap
+
+[33mcommit 782aa38c2b912b49631d2ad9587c0f25185747e3[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 3 19:38:04 2021 +0800
+
+    Edit overlay to fit more cases, fix overlay click
+
+[33mcommit af176534b893fefbc62a0d0af026fff2f1edd877[m
+Author: hoangvu12 <68330291+hoangvu12@users.noreply.github.com>
+Date:   Wed Mar 3 12:31:03 2021 +0800
+
+    Initial commit
