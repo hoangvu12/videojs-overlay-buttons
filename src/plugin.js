@@ -128,7 +128,7 @@ const eventsInitialize = (player, overlay) => {
 
 const createOverlay = (player, options) => {
   if (!options || !Object.keys(options).length) {
-    options = { ...defaults };
+    options = Object.assign({}, defaults);
   } else {
     options = mergeOptions(options, defaults);
   }
