@@ -1,32 +1,25 @@
-/*!
- * Bootstrap Grid v5.0.0-beta2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 .overlay-container-fluid {
   width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
   margin-right: auto;
   margin-left: auto;
 }
+
 .overlay-row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;
-  margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) / -2);
-  margin-left: calc(var(--bs-gutter-x) / -2);
+  margin-top: calc(0 * -1);
+  margin-right: calc(1.5rem / -2);
+  margin-left: calc(1.5rem / -2);
 }
 
 .overlay-row > * {
   box-sizing: border-box;
   flex-shrink: 0;
-  padding-right: calc(var(--bs-gutter-x) / 2);
-  padding-left: calc(var(--bs-gutter-x) / 2);
-  margin-top: var(--bs-gutter-y);
+  padding-right: calc(1.5rem / 2);
+  padding-left: calc(1.5rem / 2);
+  margin-top: 0;
 }
 
 .overlay-col {
@@ -37,6 +30,7 @@
   flex: 0 0 auto;
   width: 8.3333333333%;
 }
+
 .overlay-col-11 {
   flex: 0 0 auto;
   width: 91.6666666667%;
@@ -45,5 +39,3 @@
 .mx-auto {
   margin: 0 auto !important;
 }
-
-/*# sourceMappingURL=bootstrap-grid.min.css.map */

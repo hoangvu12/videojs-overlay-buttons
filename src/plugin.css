@@ -1,15 +1,5 @@
 @import "./bootstrap-grid.css";
 @import "./font-awesome.css";
-/**
- * css for videojs-touch-overlay
- * With the default plugins for postcss you can
- * - @import files, they will be inlined during build
- * - not worry about browser prefixes, they will be handled
- * - nest selectors. This follows the css specification that is
- *   currently out on some browsers. See https://tabatkins.github.io/specs/css-nesting/
- * - custom properties (aka variables) via the var(--var-name) syntax. See
- *   https://www.w3.org/TR/css-variables-1/
- */
 
 .video-js .overlay-row {
   height: 100%;

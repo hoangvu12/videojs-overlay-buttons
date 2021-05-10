@@ -1,6 +1,6 @@
 {
   "name": "videojs-overlay-buttons",
-  "version": "1.2.7",
+  "version": "1.3.0",
   "description": "Overlay buttons for videojs player",
   "main": "dist/videojs-overlay-buttons.cjs.js",
   "module": "dist/videojs-overlay-buttons.es.js",
@@ -61,12 +61,6 @@
     "src/",
     "test/"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
-    }
-  },
   "lint-staged": {
     "*.js": [
       "vjsstandard --fix",

@@ -1,5 +1,5 @@
-import videojs from "video.js";
-import { version as VERSION } from "../package.json";
+import videojs from 'video.js';
+import { version as VERSION } from '../package.json';
 
 let latestTap;
 let isLocked = false;
@@ -11,7 +11,7 @@ const defaults = {
 
       player.currentTime(time);
     },
-    doubleTap: true,
+    doubleTap: true
   },
   play: {
     handleClick: (player) => {
@@ -20,7 +20,7 @@ const defaults = {
       } else {
         player.pause();
       }
-    },
+    }
   },
   seekRight: {
     handleClick: (player) => {
@@ -28,24 +28,24 @@ const defaults = {
 
       player.currentTime(time);
     },
-    doubleTap: true,
+    doubleTap: true
   },
-  lockButton: false,
+  lockButton: false
 };
 
 const controlButtons = {
-  previous: { icon: "backward", className: "previous-button" },
-  seekLeft: { icon: "history", className: "seek-left" },
-  play: { icon: "play", className: "play-button" },
+  previous: { icon: 'backward', className: 'previous-button' },
+  seekLeft: { icon: 'history', className: 'seek-left' },
+  play: { icon: 'play', className: 'play-button' },
   seekRight: {
-    icon: "history",
-    className: "seek-right",
-    extra: "fa-flip-horizontal",
+    icon: 'history',
+    className: 'seek-right',
+    extra: 'fa-flip-horizontal'
   },
   next: {
-    icon: "forward",
-    className: "next-button",
-  },
+    icon: 'forward',
+    className: 'next-button'
+  }
 };
 
 // Cross-compatibility for Video.js 5 and 6.
@@ -67,7 +67,7 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
  *           A plain object containing options for the plugin.
  */
 const onPlayerReady = (player, options) => {
-  player.addClass("vjs-touch-overlay");
+  player.addClass('vjs-touch-overlay');
 
   const overlay = createOverlay(player, options);
 
@@ -77,50 +77,46 @@ const onPlayerReady = (player, options) => {
 };
 
 const eventsInitialize = (player, overlay) => {
-  const overlayRow = document.querySelector(".overlay-row");
+  const overlayRow = document.querySelector('.overlay-row');
 
-  player.on("play", () => {
-    const playButtonWrapper = document.querySelector(
-      ".play-button .button-wrapper"
-    );
+  player.on('play', () => {
+    const playButtonWrapper = document.querySelector('.play-button .button-wrapper');
 
     playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-pause"></i>';
   });
 
-  player.on("pause", () => {
-    const playButtonWrapper = document.querySelector(
-      ".play-button .button-wrapper"
-    );
+  player.on('pause', () => {
+    const playButtonWrapper = document.querySelector('.play-button .button-wrapper');
 
     playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-play"></i>';
   });
 
-  player.on("userinactive", () => {
-    overlay.classList.add("d-none");
-    overlayRow.classList.add("d-none");
+  player.on('userinactive', () => {
+    overlay.classList.add('d-none');
+    overlayRow.classList.add('d-none');
   });
 
-  player.on("useractive", () => {
-    overlay.classList.remove("d-none");
-    overlayRow.classList.remove("d-none");
+  player.on('useractive', () => {
+    overlay.classList.remove('d-none');
+    overlayRow.classList.remove('d-none');
   });
 
-  overlay.addEventListener("click", function (e) {
-    const controlBar = document.querySelector(".vjs-control-bar");
+  overlay.addEventListener('click', function(e) {
+    const controlBar = document.querySelector('.vjs-control-bar');
 
     // If clicked element is overlay button, then ignore this
-    if (e.target.classList.contains("icon")) {
+    if (e.target.classList.contains('icon')) {
       return;
     }
 
-    if (!overlayRow.classList.contains("d-none")) {
-      overlayRow.classList.add("d-none");
-      controlBar.classList.add("d-none");
+    if (!overlayRow.classList.contains('d-none')) {
+      overlayRow.classList.add('d-none');
+      controlBar.classList.add('d-none');
     } else {
-      overlayRow.classList.remove("d-none");
+      overlayRow.classList.remove('d-none');
 
       if (!isLocked) {
-        controlBar.classList.remove("d-none");
+        controlBar.classList.remove('d-none');
       }
     }
   });
@@ -133,19 +129,18 @@ const createOverlay = (player, options) => {
     options = mergeOptions(options, defaults);
   }
 
-  const overlay_div = document.createElement("div");
-  const row = document.createElement("div");
-  const controlOverlay = document.createElement("div");
+  const overlay_div = document.createElement('div');
+  const row = document.createElement('div');
+  const controlOverlay = document.createElement('div');
 
-  controlOverlay.className = "overlay-col-12 mx-auto control-overlay-buttons";
-  row.className = "overlay-row";
+  controlOverlay.className = 'overlay-col-12 mx-auto control-overlay-buttons';
+  row.className = 'overlay-row';
 
-  overlay_div.className = "overlay-container-fluid vjs-overlay";
+  overlay_div.className = 'overlay-container-fluid vjs-overlay';
 
   // Filter out button options
   const btnOpts = Object.keys(options).filter((button) =>
-    controlButtons.hasOwnProperty(button)
-  );
+    controlButtons.hasOwnProperty(button));
 
   const buttons = btnOpts.map((button) => {
     const buttonProperties = controlButtons[button];
@@ -159,16 +154,17 @@ const createOverlay = (player, options) => {
   handleTap(buttons, player);
 
   if (options.lockButton) {
-    const lockOverlay = document.createElement("div");
-    lockOverlay.className = "overlay-col-1 lock-overlay";
+    const lockOverlay = document.createElement('div');
 
-    controlOverlay.classList.remove("overlay-col-12", "mx-auto");
-    controlOverlay.classList.add("overlay-col-11");
+    lockOverlay.className = 'overlay-col-1 lock-overlay';
+
+    controlOverlay.classList.remove('overlay-col-12', 'mx-auto');
+    controlOverlay.classList.add('overlay-col-11');
 
     const lockButtonProperties = {
-      icon: "lock",
-      className: "lock-button",
-      size: "2x",
+      icon: 'lock',
+      className: 'lock-button',
+      size: '2x'
     };
 
     const lockButton = createButton(lockButtonProperties);
@@ -190,21 +186,19 @@ const createOverlay = (player, options) => {
 
 const handleLockClick = (lockBtn) => {
   const [wrapperElement] = lockBtn.children;
-  const controlBar = document.querySelector(".vjs-control-bar");
+  const controlBar = document.querySelector('.vjs-control-bar');
 
-  wrapperElement.addEventListener("click", () => {
-    const controlButtonsWrapper = Array.from(
-      document.querySelectorAll(".overlay-button:not(.lock-button)")
-    );
+  wrapperElement.addEventListener('click', () => {
+    const controlButtonsWrapper = Array.from(document.querySelectorAll('.overlay-button:not(.lock-button)'));
 
     if (isLocked) {
       wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-lock"></i>';
 
       controlButtonsWrapper.forEach((btn) => {
-        btn.classList.remove("d-none");
+        btn.classList.remove('d-none');
       });
 
-      controlBar.classList.remove("d-none");
+      controlBar.classList.remove('d-none');
 
       isLocked = false;
 
@@ -214,22 +208,20 @@ const handleLockClick = (lockBtn) => {
     wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-unlock"></i>';
 
     controlButtonsWrapper.forEach((btn) => {
-      btn.classList.add("d-none");
+      btn.classList.add('d-none');
     });
 
-    controlBar.classList.add("d-none");
+    controlBar.classList.add('d-none');
 
     isLocked = true;
   });
 };
 
 const handleTap = (buttons, player) => {
-  buttons = buttons.filter(
-    (button) => button.options.doubleTap && button.options.handleClick
-  );
+  buttons = buttons.filter((button) => button.options.doubleTap && button.options.handleClick);
 
   buttons.forEach((button) => {
-    button.element.addEventListener("click", () => {
+    button.element.addEventListener('click', () => {
       isDoubleTap(() => {
         button.options.handleClick(player);
       });
@@ -243,21 +235,23 @@ const handleClick = (buttons, player) => {
   buttons.forEach((button) => {
     const [wrapperElement] = button.element.children;
 
-    wrapperElement.addEventListener("click", () =>
-      button.options.handleClick(player)
-    );
+    wrapperElement.addEventListener('click', () =>
+      button.options.handleClick(player));
   });
 };
 
-const createButton = ({ icon, extra = "", className = "", size = "4x" }) => {
-  const iconEl = document.createElement("i");
+const createButton = ({ icon, extra = '', className = '', size = '4x' }) => {
+  const iconEl = document.createElement('i');
+
   iconEl.className = `icon fa fa-${size} fa-${icon} ${extra}`;
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "button-wrapper";
+  const wrapper = document.createElement('div');
+
+  wrapper.className = 'button-wrapper';
   wrapper.append(iconEl);
 
-  const button = document.createElement("div");
+  const button = document.createElement('div');
+
   button.className = `overlay-button vjs-button ${className}`;
 
   button.append(wrapper);
@@ -277,13 +271,15 @@ const isDoubleTap = (callback) => {
 };
 
 const mergeOptions = (originalOpts, defaultOpts) => {
-  for (let key in originalOpts) {
+  for (const key in originalOpts) {
     const userOption = originalOpts[key];
     const defaultOption = defaultOpts[key];
 
-    if (!defaultOption) continue;
+    if (!defaultOption) {
+      continue;
+    }
 
-    for (let option in defaultOption) {
+    for (const option in defaultOption) {
       if (
         !userOption.hasOwnProperty(option) &&
         defaultOption.hasOwnProperty(option)
@@ -308,7 +304,7 @@ const mergeOptions = (originalOpts, defaultOpts) => {
  * @param    {Object} [options={}]
  *           An object of options left to the plugin author to define.
  */
-const touchOverlay = function (options) {
+const touchOverlay = function(options) {
   // videojs.mergeOptions(defaults, options)
   this.ready(() => {
     onPlayerReady(this, options);
@@ -316,7 +312,7 @@ const touchOverlay = function (options) {
 };
 
 // Register the plugin with video.js.
-registerPlugin("touchOverlay", touchOverlay);
+registerPlugin('touchOverlay', touchOverlay);
 
 // Include the version number.
 touchOverlay.VERSION = VERSION;
