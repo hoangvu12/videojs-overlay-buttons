@@ -77,16 +77,16 @@ const onPlayerReady = (player, options) => {
 };
 
 const eventsInitialize = (player, overlay) => {
-  const overlayRow = document.querySelector('.overlay-row');
+  const overlayRow = overlay.querySelector('.overlay-row');
 
   player.on('play', () => {
-    const playButtonWrapper = document.querySelector('.play-button .button-wrapper');
+    const playButtonWrapper = overlayRow.querySelector('.play-button .button-wrapper');
 
     playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-pause"></i>';
   });
 
   player.on('pause', () => {
-    const playButtonWrapper = document.querySelector('.play-button .button-wrapper');
+    const playButtonWrapper = overlayRow.querySelector('.play-button .button-wrapper');
 
     playButtonWrapper.innerHTML = '<i class="icon fa fa-4x fa-play"></i>';
   });
@@ -102,7 +102,9 @@ const eventsInitialize = (player, overlay) => {
   });
 
   overlay.addEventListener('click', function(e) {
-    const controlBar = document.querySelector('.vjs-control-bar');
+    const playerElm = player.el();
+    if (!playerElm) return;
+    const controlBar = playerElm.querySelector('.vjs-control-bar');
 
     // If clicked element is overlay button, then ignore this
     if (e.target.classList.contains('icon')) {
@@ -169,7 +171,7 @@ const createOverlay = (player, options) => {
 
     const lockButton = createButton(lockButtonProperties);
 
-    handleLockClick(lockButton);
+    handleLockClick(lockButton, player);
 
     lockOverlay.append(lockButton);
 
@@ -184,12 +186,14 @@ const createOverlay = (player, options) => {
   return overlay_div;
 };
 
-const handleLockClick = (lockBtn) => {
+const handleLockClick = (lockBtn, player) => {
   const [wrapperElement] = lockBtn.children;
-  const controlBar = document.querySelector('.vjs-control-bar');
 
   wrapperElement.addEventListener('click', () => {
-    const controlButtonsWrapper = Array.from(document.querySelectorAll('.overlay-button:not(.lock-button)'));
+    const playerElm = player.el()
+    if (!playerElm) return
+    const controlBar = playerElm.querySelector('.vjs-control-bar');
+    const controlButtonsWrapper = Array.from(playerElm.querySelectorAll('.overlay-button:not(.lock-button)'));
 
     if (isLocked) {
       wrapperElement.innerHTML = '<i class="icon fa fa-2x fa-lock"></i>';
